@@ -71,6 +71,14 @@ pem_file_option_type = click.Path(exists=True, resolve_path=True)
     "will use ports 3000, 3001, ..., 3025, 3026.",
 )
 @click.option(
+    "--nanny-contact-address",
+    type=str,
+    default=None,
+    help="The address the nanny advertises to the scheduler for "
+    "communication with it."
+    "Example: tcp://127.0.0.1:3000",
+)
+@click.option(
     "--bokeh-port", type=int, default=None, help="Deprecated.  See --dashboard-address"
 )
 @click.option(
@@ -248,6 +256,7 @@ def main(
     listen_address,
     contact_address,
     nanny_port,
+    nanny_contact_address,
     nthreads,
     nprocs,
     nanny,
@@ -415,6 +424,7 @@ def main(
             resources=resources,
             security=sec,
             contact_address=contact_address,
+            nanny_contact_address=nanny_contact_address,
             host=host,
             port=port,
             dashboard=dashboard,
